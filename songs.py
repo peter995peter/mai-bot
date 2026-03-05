@@ -31,7 +31,7 @@ def off_ver(num):
     "255": "PRiSM PLUS",
     "260": "CiRCLE"
 }
-    return vl[int(num)//1000]
+    return vl[str(int(num)//100)]
 
 
 def version(date):
@@ -92,28 +92,79 @@ def update():
             for lv in i.get("data").get(ds):
                 songs[name]["const"][f'{ds.upper()}_{ltll.get(lv)}'] = i.get("data").get(ds).get(lv).get("const")
                 songs[name]["unknown"][f'{ds.upper()}_{ltll.get(lv)}'] = i.get("data").get(ds).get(lv).get("is_const_unknown")
+    off_lv = {"dx_lev_bas": "DX_BASIC","dx_lev_adv": "DX_ADVANCED","dx_lev_exp": "DX_EXPERT","dx_lev_mas": "DX_MASTER","dx_lev_remas": "DX_Re:MASTER","lev_bas": "STD_BASIC","lev_adv": "STD_ADVANCED","lev_exp": "STD_EXPERT","lev_mas": "STD_MASTER","lev_remas": "STD_Re:MASTER"}
     r = json.loads(requests.get("https://reiwa.f5.si/maimai_official.json").content.decode("utf-8-sig"))
     for i in r:
-        if i["title"] not in songs and i["catcode"] != "宴会場":
-            print(f"日服發現新歌：{i['title']}")
-            songs[i["title"]] = {}
-        elif i["catcode"] != "宴会場":
+        if i["catcode"] != "宴会場":
+            if i["title"] not in songs:
+                print(f"日服發現新歌：{i['title']}")
+                songs[i["title"]] = {
+        "artist": i.get("artist"),
+        "genre": i.get("genre"),
+        "version": off_ver(i.get("version")),
+        "img": i.get("image_url"),
+        "const": {},
+        "unknown": {},
+        "region": {"JP": False,"INT": False,"CN": False}
+        }
+                for lv in i:
+                    if lv.startswith("lev_") or lv.startswith("dx_lev_"):
+                        if i[lv].endswith("+"):
+                            flv = float(i[lv][:-1])+0.6
+                        else:
+                            flv = float(i[lv])
+                        songs[i["title"]]["const"][off_lv[lv]] = flv
+                        songs[i["title"]]["unknown"][off_lv[lv]] = 1
+                        print(f"{off_lv[lv]}: {i[lv]}")
             songs[i["title"]]["region"]["JP"] = True
     r = json.loads(requests.get("https://maimai.sega.com/assets/data/maimai_songs.json").content.decode("utf-8-sig"))
     for i in r:
-        if i["title"] not in songs and i["catcode"] != "宴会場":
-            print(f"國際版發現新歌：{i['title']}")
-            songs[i["title"]] = {}
-        elif i["catcode"] != "宴会場":
+        if i["catcode"] != "宴会場":
+            if i["title"] not in songs and i["catcode"] != "宴会場":
+                print(f"國際版發現新歌：{i['title']}")
+                songs[i["title"]] = {
+        "artist": i.get("artist"),
+        "genre": i.get("genre"),
+        "version": off_ver(i.get("version")),
+        "img": i.get("image_url"),
+        "const": {},
+        "unknown": {},
+        "region": {"JP": False,"INT": False,"CN": False}
+        }
+                for lv in i:
+                    if lv.startswith("lev_") or lv.startswith("dx_lev_"):
+                        if i[lv].endswith("+"):
+                            flv = float(i[lv][:-1])+0.6
+                        else:
+                            flv = float(i[lv])
+                        songs[i["title"]]["const"][off_lv[lv]] = flv
+                        songs[i["title"]]["unknown"][off_lv[lv]] = 1
+                        print(f"{off_lv[lv]}: {i[lv]}")
             songs[i["title"]]["region"]["INT"] = True
     r = json.loads(requests.get("https://raw.githubusercontent.com/CrazyKidCN/maimaiDX-CN-songs-database/refs/heads/main/maidata.json").content.decode("utf-8-sig"))
     for i in r:
-        if i["title"] not in songs and i["title"] != "Bad Apple!! feat nomico":
-            print(f"舞萌DX發現新歌：{i['title']}")
-            songs[i["title"]] = {}
-        elif i["title"] != "Bad Apple!! feat nomico":
+        if i["title"] != "Bad Apple!! feat nomico":
+            if i["title"] not in songs:
+                print(f"舞萌DX發現新歌：{i['title']}")
+                songs[i["title"]] = {
+        "artist": i.get("artist"),
+        "genre": i.get("category"),
+        "version": i.get("version"),
+        "img": i.get("image_file"),
+        "const": {},
+        "unknown": {},
+        "region": {"JP": False,"INT": False,"CN": False}
+        }
+                for lv in i:
+                    if lv.startswith("lev_") or lv.startswith("dx_lev_"):
+                        if i[lv].endswith("+"):
+                            flv = float(i[lv][:-1])+0.6
+                        else:
+                            flv = float(i[lv])
+                        songs[i["title"]]["const"][off_lv[lv]] = flv
+                        songs[i["title"]]["unknown"][off_lv[lv]] = 1
+                        print(f"{off_lv[lv]}: {i[lv]}")
             songs[i["title"]]["region"]["CN"] = True
-
     with open("songs.json", "w", encoding="utf-8") as file:
         json.dump(songs, file, indent=4,ensure_ascii=False)
     return songs

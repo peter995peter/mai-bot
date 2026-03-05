@@ -33325,24 +33325,587 @@
             "CN": false
         }
     },
-    "全世界共通リズム感テスト": {},
-    "D✪N’T ST✪P R✪CKIN’": {},
-    "うっせぇわ": {},
-    "夜に駆ける": {},
-    "Shooting Stars": {},
-    "MOON NIGHTのせいにして": {},
-    "さんさーら！": {},
-    "veil": {},
-    "泥の分際で私だけの大切を奪おうだなんて": {},
-    "YONA YONA DANCE": {},
-    "テリトリーバトル": {},
-    "くらべられっ子": {},
-    "あの世行きのバスに乗ってさらば。": {},
-    "吾輩よ猫であれ": {},
-    "Photon Melodies": {},
-    "オントロジー": {},
-    "VOLTAGE": {},
-    "剣を抜け！GCCX MAX": {},
-    "残響散歌": {},
-    "アマカミサマ": {}
+    "give it up to you": {
+        "artist": "曲：中土智博／歌：bitter flavor [桜井 春菜(CV：近藤 玲奈)、早乙女 彩華(CV：中島 唯)]",
+        "genre": "オンゲキ＆CHUNITHM",
+        "version": "CiRCLE",
+        "img": "441cfe6d94175558.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 7.0,
+            "DX_EXPERT": 10.7,
+            "DX_MASTER": 13.2
+        },
+        "unknown": {
+            "DX_BASIC": 0,
+            "DX_ADVANCED": 0,
+            "DX_EXPERT": 0,
+            "DX_MASTER": 0
+        },
+        "region": {
+            "JP": true,
+            "INT": false,
+            "CN": false
+        }
+    },
+    "ICEBURN": {
+        "artist": "Srav3R",
+        "genre": "オンゲキ＆CHUNITHM",
+        "version": "CiRCLE",
+        "img": "a1cf29dd6fd3c707.png",
+        "const": {
+            "DX_BASIC": 4.0,
+            "DX_ADVANCED": 8.0,
+            "DX_EXPERT": 11.5,
+            "DX_MASTER": 13.8
+        },
+        "unknown": {
+            "DX_BASIC": 0,
+            "DX_ADVANCED": 0,
+            "DX_EXPERT": 0,
+            "DX_MASTER": 0
+        },
+        "region": {
+            "JP": true,
+            "INT": false,
+            "CN": false
+        }
+    },
+    "7 Wonders": {
+        "artist": "削除",
+        "genre": "maimai",
+        "version": "CiRCLE",
+        "img": "3119002860e5eca8.png",
+        "const": {
+            "DX_BASIC": 6.0,
+            "DX_ADVANCED": 8.2,
+            "DX_EXPERT": 12.8,
+            "DX_MASTER": 14.9
+        },
+        "unknown": {
+            "DX_BASIC": 0,
+            "DX_ADVANCED": 0,
+            "DX_EXPERT": 0,
+            "DX_MASTER": 0
+        },
+        "region": {
+            "JP": true,
+            "INT": false,
+            "CN": false
+        }
+    },
+    "WakeUP MakeUP FEVER!": {
+        "artist": "曲：アオワイファイ／歌：オンゲキシューターズ",
+        "genre": "オンゲキ＆CHUNITHM",
+        "version": "CiRCLE",
+        "img": "49d875aca59e2dbc.png",
+        "const": {
+            "DX_BASIC": 2.0,
+            "DX_ADVANCED": 6.2,
+            "DX_EXPERT": 10.0,
+            "DX_MASTER": 13.3
+        },
+        "unknown": {
+            "DX_BASIC": 0,
+            "DX_ADVANCED": 0,
+            "DX_EXPERT": 0,
+            "DX_MASTER": 0
+        },
+        "region": {
+            "JP": true,
+            "INT": false,
+            "CN": false
+        }
+    },
+    "Daredevil Glaive": {
+        "artist": "Artifact",
+        "genre": "オンゲキ＆CHUNITHM",
+        "version": "CiRCLE",
+        "img": "ecf6ef747128387c.png",
+        "const": {
+            "DX_BASIC": 5.0,
+            "DX_ADVANCED": 7.8,
+            "DX_EXPERT": 11.8,
+            "DX_MASTER": 14.2
+        },
+        "unknown": {
+            "DX_BASIC": 0,
+            "DX_ADVANCED": 0,
+            "DX_EXPERT": 0,
+            "DX_MASTER": 0
+        },
+        "region": {
+            "JP": true,
+            "INT": false,
+            "CN": false
+        }
+    },
+    "全世界共通リズム感テスト": {
+        "artist": "☆リズムに合わせてボタンを叩き達成率を競うゲームです☆",
+        "genre": null,
+        "version": "Splash",
+        "img": "eabcf5ede00f256a.png",
+        "const": {
+            "STD_BASIC": 6.0,
+            "STD_ADVANCED": 8.0,
+            "STD_EXPERT": 10.0,
+            "STD_MASTER": 12.0
+        },
+        "unknown": {
+            "STD_BASIC": 1,
+            "STD_ADVANCED": 1,
+            "STD_EXPERT": 1,
+            "STD_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": true,
+            "CN": false
+        }
+    },
+    "D✪N’T ST✪P R✪CKIN’": {
+        "artist": "EB(aka EarBreaker)",
+        "genre": "舞萌",
+        "version": "ORANGE PLUS",
+        "img": "fa4ab1b07c950368.png",
+        "const": {
+            "STD_BASIC": 5.0,
+            "STD_ADVANCED": 7.0,
+            "STD_EXPERT": 10.6,
+            "STD_MASTER": 13.6,
+            "STD_Re:MASTER": 13.0
+        },
+        "unknown": {
+            "STD_BASIC": 1,
+            "STD_ADVANCED": 1,
+            "STD_EXPERT": 1,
+            "STD_MASTER": 1,
+            "STD_Re:MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "うっせぇわ": {
+        "artist": "Ado",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2022",
+        "img": "f35da896a6e4e282.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 7.0,
+            "DX_EXPERT": 9.6,
+            "DX_MASTER": 11.6,
+            "DX_Re:MASTER": 13.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1,
+            "DX_Re:MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "夜に駆ける": {
+        "artist": "YOASOBI",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2022",
+        "img": "90f53fb84daa1aa4.png",
+        "const": {
+            "DX_BASIC": 2.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 8.0,
+            "DX_MASTER": 11.0,
+            "DX_Re:MASTER": 12.6
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1,
+            "DX_Re:MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "Shooting Stars": {
+        "artist": "クレシェンドブルー [最上静香 (CV.田所あずさ)、北上麗花 (CV.平山笑美)、北沢志保 (CV.雨宮 天)、野々原 茜 (CV.小笠原早紀)、箱崎星梨花 (CV.麻倉もも)]",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2022",
+        "img": "56bf1cdcbbf097c9.png",
+        "const": {
+            "DX_BASIC": 2.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 8.0,
+            "DX_MASTER": 12.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "MOON NIGHTのせいにして": {
+        "artist": "DRAMATIC STARS [天道 輝 (CV.仲村宗悟), 桜庭 薫 (CV.内田雄馬), 柏木 翼 (CV.八代 拓)]",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2022",
+        "img": "7e55f7f0b1415ea0.png",
+        "const": {
+            "DX_BASIC": 2.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 8.0,
+            "DX_MASTER": 12.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "さんさーら！": {
+        "artist": "ARuFa",
+        "genre": "其他游戏",
+        "version": "舞萌DX 2022",
+        "img": "95366a9a2c5583ed.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 8.6,
+            "DX_MASTER": 12.6
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "veil": {
+        "artist": "須田景凪",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2022",
+        "img": "7db1b97fc6379723.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 8.6,
+            "DX_MASTER": 12.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "泥の分際で私だけの大切を奪おうだなんて": {
+        "artist": "ツユ",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2022",
+        "img": "64a870cc6cb3ebc5.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 7.6,
+            "DX_EXPERT": 10.6,
+            "DX_MASTER": 13.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "YONA YONA DANCE": {
+        "artist": "和田アキ子",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2023",
+        "img": "18d42d69aa210172.png",
+        "const": {
+            "DX_BASIC": 1.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 9.0,
+            "DX_MASTER": 12.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "テリトリーバトル": {
+        "artist": "ツユ",
+        "genre": "音击/中二节奏",
+        "version": "舞萌DX 2023",
+        "img": "af7eef1a3da40d6b.png",
+        "const": {
+            "DX_BASIC": 4.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 10.0,
+            "DX_MASTER": 13.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "くらべられっ子": {
+        "artist": "ツユ",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2023",
+        "img": "53899521eb35e95d.png",
+        "const": {
+            "DX_BASIC": 2.0,
+            "DX_ADVANCED": 7.0,
+            "DX_EXPERT": 9.6,
+            "DX_MASTER": 11.0,
+            "DX_Re:MASTER": 13.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1,
+            "DX_Re:MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "あの世行きのバスに乗ってさらば。": {
+        "artist": "ツユ",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2023",
+        "img": "12dd6e137e5e6c6c.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 7.6,
+            "DX_EXPERT": 11.6,
+            "DX_MASTER": 13.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "吾輩よ猫であれ": {
+        "artist": "Lyrical Lily",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2023",
+        "img": "f7241520f3525b18.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 8.6,
+            "DX_MASTER": 12.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "Photon Melodies": {
+        "artist": "Photon Maiden",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2023",
+        "img": "31d1a7b30d49d4d7.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 10.0,
+            "DX_MASTER": 13.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "オントロジー": {
+        "artist": "Rain Drops",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2023",
+        "img": "377e669fca63c034.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 7.0,
+            "DX_EXPERT": 10.0,
+            "DX_MASTER": 12.6
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "VOLTAGE": {
+        "artist": "Rain Drops",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2023",
+        "img": "225b8d72d8dbc59a.png",
+        "const": {
+            "DX_BASIC": 4.0,
+            "DX_ADVANCED": 7.0,
+            "DX_EXPERT": 10.6,
+            "DX_MASTER": 13.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "剣を抜け！GCCX MAX": {
+        "artist": "メッセメッセクラブ",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2023",
+        "img": "26c750b9768fcca5.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 9.0,
+            "DX_MASTER": 13.0
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "残響散歌": {
+        "artist": "Aimer",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2023",
+        "img": "61c0db523498c4a5.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 9.6,
+            "DX_MASTER": 13.6
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    },
+    "アマカミサマ": {
+        "artist": "名取さな",
+        "genre": "流行&动漫",
+        "version": "舞萌DX 2023",
+        "img": "db00c4017f608b7a.png",
+        "const": {
+            "DX_BASIC": 3.0,
+            "DX_ADVANCED": 6.0,
+            "DX_EXPERT": 9.0,
+            "DX_MASTER": 12.6
+        },
+        "unknown": {
+            "DX_BASIC": 1,
+            "DX_ADVANCED": 1,
+            "DX_EXPERT": 1,
+            "DX_MASTER": 1
+        },
+        "region": {
+            "JP": false,
+            "INT": false,
+            "CN": true
+        }
+    }
 }
