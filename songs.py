@@ -2,7 +2,7 @@ import requests
 import json
 from datetime import datetime
 
-def off_ver(num):
+def off_ver(num): #由官方版本號轉換版本名稱
     vl = {
     "100": "maimai",
     "110": "maimai PLUS",
@@ -34,7 +34,7 @@ def off_ver(num):
     return vl[str(int(num)//100)]
 
 
-def version(date):
+def version(date): #由日期推算版本名稱
     nd = datetime.strptime(date, "%Y-%m-%d")
     vl = {
     "maimai": "2012-07-11",
@@ -72,101 +72,102 @@ def version(date):
         else:
             return cv
 
-def update():
-    ltll = {"BAS": "BASIC", "ADV": "ADVANCED", "EXP":"EXPERT", "MAS":"MASTER", "REMAS":"Re:MASTER"}
+def update(): #更新歌曲資料庫
+    ltll = {"BAS": "BASIC", "ADV": "ADVANCED", "EXP":"EXPERT", "MAS":"MASTER", "REMAS":"Re:MASTER"} #短名到完整名稱對照表
     songs = {}
     r = json.loads(requests.get("https://reiwa.f5.si/maimai_all.json").content.decode("utf-8-sig"))
     for i in r:
-        name = i.get("meta").get("title")
+        name = i.get("meta").get("title") #抓取歌曲名稱
         songs[name] = {
-    "artist": i.get("meta").get("artist"),
-    "genre": i.get("meta").get("genre"),
-    "version": version(i.get("meta").get("release")),
-    "img": f'{i["meta"]["img"]}.png',
-    "const": {},
-    "unknown": {},
-    "region": {"JP": False,"INT": False,"CN": False}
+    "artist": i.get("meta").get("artist"), #抓取作曲者資料
+    "genre": i.get("meta").get("genre"), #抓取歌曲分類
+    "version": version(i.get("meta").get("release")), #由推出日期推算版本名稱
+    "img": f'{i["meta"]["img"]}.png', #圖片保存位置
+    "const": {}, #定數列表
+    "unknown": {}, #是否未知定數
+    "region": {"JP": False,"INT": False,"CN": False} #各版本收錄情況
     }
-        songs[name]["const"] = {}
         for ds in i.get("data"):
             for lv in i.get("data").get(ds):
-                songs[name]["const"][f'{ds.upper()}_{ltll.get(lv)}'] = i.get("data").get(ds).get(lv).get("const")
-                songs[name]["unknown"][f'{ds.upper()}_{ltll.get(lv)}'] = i.get("data").get(ds).get(lv).get("is_const_unknown")
-    off_lv = {"dx_lev_bas": "DX_BASIC","dx_lev_adv": "DX_ADVANCED","dx_lev_exp": "DX_EXPERT","dx_lev_mas": "DX_MASTER","dx_lev_remas": "DX_Re:MASTER","lev_bas": "STD_BASIC","lev_adv": "STD_ADVANCED","lev_exp": "STD_EXPERT","lev_mas": "STD_MASTER","lev_remas": "STD_Re:MASTER"}
-    r = json.loads(requests.get("https://reiwa.f5.si/maimai_official.json").content.decode("utf-8-sig"))
+                songs[name]["const"][f'{ds.upper()}_{ltll.get(lv)}'] = i.get("data").get(ds).get(lv).get("const") #抓取類型_難度的定數
+                songs[name]["unknown"][f'{ds.upper()}_{ltll.get(lv)}'] = i.get("data").get(ds).get(lv).get("is_const_unknown") #檢查是否未知定數
+    off_lv = {"dx_lev_bas": "DX_BASIC","dx_lev_adv": "DX_ADVANCED","dx_lev_exp": "DX_EXPERT","dx_lev_mas": "DX_MASTER","dx_lev_remas": "DX_Re:MASTER","lev_bas": "STD_BASIC","lev_adv": "STD_ADVANCED","lev_exp": "STD_EXPERT","lev_mas": "STD_MASTER","lev_remas": "STD_Re:MASTER"} #官網資料與儲存資料對照表
+    r = json.loads(requests.get("https://reiwa.f5.si/maimai_official.json").content.decode("utf-8-sig")) #抓取日版官網資料
     for i in r:
-        if i["catcode"] != "宴会場":
-            if i["title"] not in songs:
+        if i["catcode"] != "宴会場": #不抓宴譜
+            if i["title"] not in songs: #檢查有沒有沒有缺的歌
                 print(f"日服發現新歌：{i['title']}")
                 songs[i["title"]] = {
-        "artist": i.get("artist"),
-        "genre": i.get("genre"),
-        "version": off_ver(i.get("version")),
-        "img": i.get("image_url"),
-        "const": {},
-        "unknown": {},
-        "region": {"JP": False,"INT": False,"CN": False}
+        "artist": i.get("artist"), #作曲者
+        "genre": i.get("genre"), #類別
+        "version": off_ver(i.get("version")), #由官方版本號轉換為版本名稱
+        "img": i.get("image_url"), #圖片保存位置
+        "const": {}, #定數
+        "unknown": {}, #是否未知
+        "region": {"JP": False,"INT": False,"CN": False} #各版本收錄情況
         }
                 for lv in i:
-                    if lv.startswith("lev_") or lv.startswith("dx_lev_"):
-                        if i[lv].endswith("+"):
+                    if lv.startswith("lev_") or lv.startswith("dx_lev_"): #抓歌曲難度
+                        if i[lv].endswith("+"): #如果是+就默認.6
                             flv = float(i[lv][:-1])+0.6
-                        else:
+                        else: #如果沒有就默認.0
                             flv = float(i[lv])
                         songs[i["title"]]["const"][off_lv[lv]] = flv
-                        songs[i["title"]]["unknown"][off_lv[lv]] = 1
+                        songs[i["title"]]["unknown"][off_lv[lv]] = 1 #官網抓取資料一律認定未知
                         print(f"{off_lv[lv]}: {i[lv]}")
-            songs[i["title"]]["region"]["JP"] = True
-    r = json.loads(requests.get("https://maimai.sega.com/assets/data/maimai_songs.json").content.decode("utf-8-sig"))
+            songs[i["title"]]["region"]["JP"] = True #標示日服有這首歌
+    r = json.loads(requests.get("https://maimai.sega.com/assets/data/maimai_songs.json").content.decode("utf-8-sig")) #抓取國際版官網資料
     for i in r:
-        if i["catcode"] != "宴会場":
-            if i["title"] not in songs and i["catcode"] != "宴会場":
+        if i["catcode"] != "宴会場": #不抓宴譜
+            if i["title"] not in songs and i["catcode"] != "宴会場": #檢查有沒有沒有缺的歌
                 print(f"國際版發現新歌：{i['title']}")
                 songs[i["title"]] = {
-        "artist": i.get("artist"),
-        "genre": i.get("genre"),
-        "version": off_ver(i.get("version")),
-        "img": i.get("image_url"),
-        "const": {},
-        "unknown": {},
-        "region": {"JP": False,"INT": False,"CN": False}
+        "artist": i.get("artist"), #作曲者
+        "genre": i.get("genre"), #類別
+        "version": off_ver(i.get("version")), #由官方版本號轉換為版本名稱
+        "img": i.get("image_url"), #圖片保存位置
+        "const": {}, #定數
+        "unknown": {}, #是否未知
+        "region": {"JP": False,"INT": False,"CN": False} #各版本收錄情況
         }
                 for lv in i:
-                    if lv.startswith("lev_") or lv.startswith("dx_lev_"):
-                        if i[lv].endswith("+"):
+                    if lv.startswith("lev_") or lv.startswith("dx_lev_"): #抓歌曲難度
+                        if i[lv].endswith("+"): #如果是+就默認.6
                             flv = float(i[lv][:-1])+0.6
-                        else:
+                        else: #如果沒有就默認.0
                             flv = float(i[lv])
                         songs[i["title"]]["const"][off_lv[lv]] = flv
-                        songs[i["title"]]["unknown"][off_lv[lv]] = 1
+                        songs[i["title"]]["unknown"][off_lv[lv]] = 1 #官網抓取資料一律認定未知
                         print(f"{off_lv[lv]}: {i[lv]}")
-            songs[i["title"]]["region"]["INT"] = True
-    r = json.loads(requests.get("https://raw.githubusercontent.com/CrazyKidCN/maimaiDX-CN-songs-database/refs/heads/main/maidata.json").content.decode("utf-8-sig"))
+            songs[i["title"]]["region"]["INT"] = True #標示國際版有這首歌
+    r = json.loads(requests.get("https://raw.githubusercontent.com/CrazyKidCN/maimaiDX-CN-songs-database/refs/heads/main/maidata.json").content.decode("utf-8-sig")) #抓取中國版官網資料
     for i in r:
-        if i["title"] != "Bad Apple!! feat nomico":
-            if i["title"] not in songs:
+        if i["title"] != "Bad Apple!! feat nomico": #不抓重複曲
+            if i["title"] not in songs: #檢查有沒有沒有缺的歌
                 print(f"舞萌DX發現新歌：{i['title']}")
                 songs[i["title"]] = {
-        "artist": i.get("artist"),
-        "genre": i.get("category"),
-        "version": i.get("version"),
-        "img": i.get("image_file"),
-        "const": {},
-        "unknown": {},
-        "region": {"JP": False,"INT": False,"CN": False}
+        "artist": i.get("artist"), #作曲者
+        "genre": i.get("category"), #類別
+        "version": i.get("version"), #由官方版本號轉換為版本名稱
+        "img": i.get("image_file"), #圖片保存位置
+        "const": {}, #定數
+        "unknown": {}, #是否未知
+        "region": {"JP": False,"INT": False,"CN": False} #各版本收錄情況
         }
                 for lv in i:
-                    if lv.startswith("lev_") or lv.startswith("dx_lev_"):
-                        if i[lv].endswith("+"):
+                    if lv.startswith("lev_") or lv.startswith("dx_lev_"): #抓歌曲難度
+                        if i[lv].endswith("+"): #如果是+就默認.6
                             flv = float(i[lv][:-1])+0.6
-                        else:
+                        else: #如果沒有就默認.0
                             flv = float(i[lv])
                         songs[i["title"]]["const"][off_lv[lv]] = flv
-                        songs[i["title"]]["unknown"][off_lv[lv]] = 1
+                        songs[i["title"]]["unknown"][off_lv[lv]] = 1 #官網抓取資料一律認定未知
                         print(f"{off_lv[lv]}: {i[lv]}")
-            songs[i["title"]]["region"]["CN"] = True
+            songs[i["title"]]["region"]["CN"] = True #標示中國版有這首歌
     with open("songs.json", "w", encoding="utf-8") as file:
         json.dump(songs, file, indent=4,ensure_ascii=False)
     return songs
 
-update()
+def get():
+    with open("songs.json") as file:
+        return json.load(file)
