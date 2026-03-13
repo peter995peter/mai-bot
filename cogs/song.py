@@ -4,6 +4,9 @@ from discord.ext import commands
 import songs
 import random
 import urllib
+import math
+import json
+import page
 
 def const_to_level(const):
     return f"{int(const)}{['', '+'][const%1 >= 0.55]}" #幫超過.6的定數補+
@@ -62,6 +65,44 @@ def lte(text): #轉換文字成表情符號
         text = text.replace(i,rep[i])
     return text
 
+class List(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=180,disable_on_timeout=True)
+    @discord.ui.button(label="上一頁", style=discord.ButtonStyle.primary, emoji="⬅️")
+    async def up(self, button, interaction):
+        data = page.get()
+        td = data.get(str(interaction.message.id), 404)
+        if td == 404:
+            await interaction.response.send_message("未找到資料，請嘗試重新輸入")
+        elif td["page"] == 1:
+            await interaction.response.send_message("你按了上一頁，但這已經是第一頁了")
+        else:
+            td["page"] -= 1
+            songss = find_songs(td['mix_level'], td['max_level'], td['version'], td['dx'], td['diff'],td['region'])
+            ss = []
+            for s in songss[(td["page"]-1)*10:(td["page"])*10]:
+                ss.append(song_embed(s.get("name"),s.get("diff")))
+            await interaction.response.edit_message(content=f"page {td['page']}/{math.ceil(len(songss)/10)}",embeds=ss, view=List())
+            data[str(interaction.message.id)] = td
+            page.write(data)
+    @discord.ui.button(label="下一頁", style=discord.ButtonStyle.primary, emoji="➡️")
+    async def down(self, button, interaction):
+        data = page.get()
+        td = data.get(str(interaction.message.id), 404)
+        if td == 404:
+            await interaction.response.send_message("未找到資料，請嘗試重新輸入")
+        elif td["page"] == td["max"]:
+            await interaction.response.send_message("你按了下一頁，但這已經是最後一頁了")
+        else:
+            td["page"] += 1
+            songss = find_songs(td['mix_level'], td['max_level'], td['version'], td['dx'], td['diff'],td['region'])
+            ss = []
+            for s in songss[(td["page"]-1)*10:(td["page"])*10]:
+                ss.append(song_embed(s.get("name"),s.get("diff")))
+            await interaction.response.edit_message(content=f"page {td['page']}/{math.ceil(len(songss)/10)}",embeds=ss, view=List())
+            data[str(interaction.message.id)] = td
+            page.write(data)
+
 class song(commands.Cog):
 
     def __init__(self,bot):
@@ -93,8 +134,34 @@ class song(commands.Cog):
             await ctx.respond(content=f"共{len(songss)}首符合條件",embeds=ss)
     
     @song.command(name='list',description='根據條件列出全部符合的歌曲')
-    async def ping(self,ctx: discord.ApplicationContext):
-        await ctx.respond(f"等等寫")
+    async def list(self,ctx: discord.ApplicationContext,
+    mix_level: discord.Option(float,name="最低等級",description="最低等級",required=False),
+    max_level: discord.Option(float,name="最高等級",description="最高等級",required=False),
+    version: discord.Option(str,autocomplete=version_list,required=False,name="指定版本",description="指定版本"),
+    tp: discord.Option(str,choices=["DX","STD"],required=False,name="指定類型",description="指定類型"),
+    diff: discord.Option(str,choices=["BASIC","ADVANCED","EXPERT","MASTER","Re:MASTER"],required=False,name="指定難度",description="指定難度"),
+    region: discord.Option(str,choices=[OptionChoice(name="日版", value="JP"),OptionChoice(name="國際版", value="INT"),OptionChoice(name="中國版(舞萌DX)", value="CN")],required=False,name="指定區域",description="指定區域(國際版可能會缺部分歌曲)")
+    ):
+        dx = {"STD": 0,"DX":1}.get(tp, -1)
+        songss = find_songs(mix_level, max_level, version, dx, diff,region)
+        ss = []
+        for s in songss[0:10]:
+            ss.append(song_embed(s.get("name"),s.get("diff")))
+        em = await ctx.respond(f"page 1/{math.ceil(len(songss)/10)}",embeds=ss, view=List())
+        em = await em.original_response()
+        data = page.get()
+        data[str(em.id)] = {
+        "author": ctx.author.id,
+        "mix_level": mix_level,
+        "max_level": max_level,
+        "version": version,
+        "dx": dx,
+        "diff": diff,
+        "region": region,
+        "page": 1,
+        "max": math.ceil(len(songss)/10)
+        }
+        page.write(data)
     
     @song.command(name='find',description='尋找指定歌曲')
     async def ping(self,ctx: discord.ApplicationContext):
