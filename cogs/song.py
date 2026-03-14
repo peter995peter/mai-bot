@@ -1,12 +1,19 @@
 import discord
 from discord.commands import slash_command, OptionChoice
 from discord.ext import commands
-import songs
+from fun import songs
 import random
 import urllib
 import math
 import json
-import page
+
+def pageGet():
+    with open("data/page.json") as file:
+        return json.load(file)
+
+def pageWrite(data):
+    with open("data/page.json", "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=4,ensure_ascii=False)
 
 def const_to_level(const):
     return f"{int(const)}{['', '+'][const%1 >= 0.55]}" #幫超過.6的定數補+
@@ -89,7 +96,7 @@ class List(discord.ui.View):
         super().__init__(timeout=180,disable_on_timeout=True) #設定180秒過期的按鈕
     @discord.ui.button(label="上一頁", style=discord.ButtonStyle.primary, emoji="⬅️")
     async def up(self, button, interaction):
-        data = page.get()
+        data = pageGet()
         td = data.get(str(interaction.message.id), 404)
         if td == 404:
             await interaction.response.send_message("未找到資料，請嘗試重新輸入",ephemeral=True)
@@ -105,10 +112,10 @@ class List(discord.ui.View):
                 ss.append(song_embed(s.get("name"),s.get("diff")))
             await interaction.response.edit_message(content=f"頁數: {td['page']}/{math.ceil(len(songss)/10)}(共{len(songss)}筆)",embeds=ss, view=List())
             data[str(interaction.message.id)] = td
-            page.write(data)
+            pageWrite(data)
     @discord.ui.button(label="下一頁", style=discord.ButtonStyle.primary, emoji="➡️")
     async def down(self, button, interaction):
-        data = page.get()
+        data = pageGet()
         td = data.get(str(interaction.message.id), 404)
         if td == 404:
             await interaction.response.send_message("未找到資料，請嘗試重新輸入",ephemeral=True)
@@ -124,7 +131,7 @@ class List(discord.ui.View):
                 ss.append(song_embed(s.get("name"),s.get("diff")))
             await interaction.response.edit_message(content=f"頁數: {td['page']}/{math.ceil(len(songss)/10)}(共{len(songss)}筆)",embeds=ss, view=List())
             data[str(interaction.message.id)] = td
-            page.write(data)
+            pageWrite(data)
 
 class song(commands.Cog):
 
@@ -172,7 +179,7 @@ class song(commands.Cog):
             ss.append(song_embed(s.get("name"),s.get("diff")))
         em = await ctx.respond(f"頁數: 1/{math.ceil(len(songss)/10)}(共{(len(songss))}筆)",embeds=ss, view=List())
         em = await em.original_response()
-        data = page.get()
+        data = pageGet()
         data[str(em.id)] = {
         "author": ctx.author.id,
         "mix_level": mix_level,
@@ -184,7 +191,7 @@ class song(commands.Cog):
         "page": 1,
         "max": math.ceil(len(songss)/10)
         }
-        page.write(data)
+        pageWrite(data)
     
     @song.command(name='find',description='尋找指定歌曲')
     async def find(self,ctx: discord.ApplicationContext,

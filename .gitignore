@@ -1,4 +1,4 @@
 .env
-songs.json
+data/songs.json
 __pycache__
 .venv

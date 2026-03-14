@@ -2,8 +2,6 @@ import requests
 import os
 from bs4 import BeautifulSoup
 
-from dotenv import load_dotenv
-load_dotenv() #讀取.env
 clal = {'User-Agent':'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36'}
 userId = {'User-Agent':'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36'}
 def loginSid(): #使用帳號密碼登入
@@ -63,4 +61,21 @@ def get(url):
     else:
         return soup
 
-get("friend")
+def addFriend(friend_code):
+    if not(get("playerData")):
+        return False
+    for i in userId["Cookie"].split(";"):
+        if i.startswith("_t"):
+            token = i.split("=",1)[1]
+    r = requests.post("https://maimaidx-eng.com/maimai-mobile/friend/search/invite/",headers=userId,data={"idx": str(friend_code),"token": token})
+    return True
+
+def getInfo(friend_code):
+    soup = get(f"friend/friendGenreVs/?idx={friend_code}")
+    if soup:
+        if soup.title.text == "maimai DX NET－All Friend's－":
+            return None
+        else:
+            return {"name": soup.select('div.p_l_5.t_l.f_l.f_12.f_b')[1].text, "rating": int(soup.select('div.rating_block')[1].text)}
+    else:
+        return None

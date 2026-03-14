@@ -164,10 +164,10 @@ def update(): #更新歌曲資料庫
                         songs[i["title"]]["unknown"][off_lv[lv]] = 1 #官網抓取資料一律認定未知
                         print(f"{off_lv[lv]}: {i[lv]}")
             songs[i["title"]]["region"]["CN"] = True #標示中國版有這首歌
-    with open("songs.json", "w", encoding="utf-8") as file:
+    with open("data/songs.json", "w", encoding="utf-8") as file:
         json.dump(songs, file, indent=4,ensure_ascii=False)
     return songs
 
 def get():
-    with open("songs.json") as file:
+    with open("data/songs.json") as file:
         return json.load(file)
