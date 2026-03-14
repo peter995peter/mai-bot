@@ -1,1 +1,90 @@
-{}
+{
+    "1482254014715265168": {
+        "author": 690557429523546143,
+        "mix_level": null,
+        "max_level": null,
+        "version": null,
+        "dx": -1,
+        "diff": null,
+        "region": null,
+        "page": 1,
+        "max": 618
+    },
+    "1482256259729064016": {
+        "author": 690557429523546143,
+        "mix_level": 13.4,
+        "max_level": 13.4,
+        "version": null,
+        "dx": -1,
+        "diff": null,
+        "region": null,
+        "page": 1,
+        "max": 12
+    },
+    "1482257547162423339": {
+        "author": 690557429523546143,
+        "mix_level": 14.9,
+        "max_level": null,
+        "version": null,
+        "dx": -1,
+        "diff": null,
+        "region": null,
+        "page": 2,
+        "max": 2
+    },
+    "1482257783410786445": {
+        "author": 690557429523546143,
+        "mix_level": 15.0,
+        "max_level": null,
+        "version": null,
+        "dx": -1,
+        "diff": null,
+        "region": null,
+        "page": 1,
+        "max": 1
+    },
+    "1482260157672067093": {
+        "author": 690557429523546143,
+        "mix_level": 14.9,
+        "max_level": null,
+        "version": null,
+        "dx": -1,
+        "diff": null,
+        "region": null,
+        "page": 1,
+        "max": 2
+    },
+    "1482260380322365632": {
+        "author": 690557429523546143,
+        "mix_level": 14.5,
+        "max_level": null,
+        "version": null,
+        "dx": -1,
+        "diff": null,
+        "region": null,
+        "page": 4,
+        "max": 12
+    },
+    "1482260593422499871": {
+        "author": 690557429523546143,
+        "mix_level": null,
+        "max_level": null,
+        "version": null,
+        "dx": -1,
+        "diff": "MASTER",
+        "region": "CN",
+        "page": 1,
+        "max": 140
+    },
+    "1482260727657005106": {
+        "author": 690557429523546143,
+        "mix_level": null,
+        "max_level": null,
+        "version": null,
+        "dx": -1,
+        "diff": "EXPERT",
+        "region": "CN",
+        "page": 1,
+        "max": 127
+    }
+}

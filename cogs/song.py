@@ -29,7 +29,7 @@ async def song_list(ctx: discord.AutocompleteContext): #版本號搜尋器
     for i in data:
         if name.lower() in i.lower():
             if len(i) > 100:
-                fn = f'{i[:97]}...'
+                fn = f'{i[:97]}...' #把超過100字的留下前97字加上...
             else:
                 fn = i
             rl.append(OptionChoice(name=fn, value=fn))
@@ -86,14 +86,14 @@ def lte(text): #轉換文字成表情符號
 
 class List(discord.ui.View):
     def __init__(self):
-        super().__init__(timeout=180,disable_on_timeout=True)
+        super().__init__(timeout=180,disable_on_timeout=True) #設定180秒過期的按鈕
     @discord.ui.button(label="上一頁", style=discord.ButtonStyle.primary, emoji="⬅️")
     async def up(self, button, interaction):
         data = page.get()
         td = data.get(str(interaction.message.id), 404)
         if td == 404:
             await interaction.response.send_message("未找到資料，請嘗試重新輸入",ephemeral=True)
-        elif td["author"] != interaction.user.id:
+        elif td["author"] != interaction.user.id: #檢查按的人和一開始的一不一樣
             await interaction.response.send_message("要按自己開一個",ephemeral=True)
         elif td["page"] == 1:
             await interaction.response.send_message("你按了上一頁，但這已經是第一頁了",ephemeral=True)
@@ -103,19 +103,16 @@ class List(discord.ui.View):
             ss = []
             for s in songss[(td["page"]-1)*10:(td["page"])*10]:
                 ss.append(song_embed(s.get("name"),s.get("diff")))
-            await interaction.response.edit_message(content=f"page {td['page']}/{math.ceil(len(songss)/10)}",embeds=ss, view=List())
+            await interaction.response.edit_message(content=f"頁數: {td['page']}/{math.ceil(len(songss)/10)}(共{len(songss)}筆)",embeds=ss, view=List())
             data[str(interaction.message.id)] = td
             page.write(data)
-    @discord.ui.button(label=f"頁數: 看上面", style=discord.ButtonStyle.secondary , disabled=True)
-    async def page(self, button, interaction):
-        await interaction.response.send_message("你怎麼按的",ephemeral=True)
     @discord.ui.button(label="下一頁", style=discord.ButtonStyle.primary, emoji="➡️")
     async def down(self, button, interaction):
         data = page.get()
         td = data.get(str(interaction.message.id), 404)
         if td == 404:
             await interaction.response.send_message("未找到資料，請嘗試重新輸入",ephemeral=True)
-        elif td["author"] != interaction.user.id:
+        elif td["author"] != interaction.user.id: #檢查按的人和一開始的一不一樣
             await interaction.response.send_message("要按自己開一個",ephemeral=True)
         elif td["page"] == td["max"]:
             await interaction.response.send_message("你按了下一頁，但這已經是最後一頁了",ephemeral=True)
@@ -125,7 +122,7 @@ class List(discord.ui.View):
             ss = []
             for s in songss[(td["page"]-1)*10:(td["page"])*10]:
                 ss.append(song_embed(s.get("name"),s.get("diff")))
-            await interaction.response.edit_message(content=f"page {td['page']}/{math.ceil(len(songss)/10)}",embeds=ss, view=List())
+            await interaction.response.edit_message(content=f"頁數: {td['page']}/{math.ceil(len(songss)/10)}(共{len(songss)}筆)",embeds=ss, view=List())
             data[str(interaction.message.id)] = td
             page.write(data)
 
@@ -134,7 +131,7 @@ class song(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
     
-    song = discord.SlashCommandGroup("song", "歌曲相關")
+    song = discord.SlashCommandGroup("song", "歌曲相關",integration_types={discord.IntegrationType.guild_install, discord.IntegrationType.user_install})
 
     @song.command(name='random',description='根據條件隨機抽歌')
     async def random1(self,ctx: discord.ApplicationContext,
@@ -173,7 +170,7 @@ class song(commands.Cog):
         ss = []
         for s in songss[0:10]:
             ss.append(song_embed(s.get("name"),s.get("diff")))
-        em = await ctx.respond(f"page 1/{math.ceil(len(songss)/10)}",embeds=ss, view=List())
+        em = await ctx.respond(f"頁數: 1/{math.ceil(len(songss)/10)}(共{(len(songss))}筆)",embeds=ss, view=List())
         em = await em.original_response()
         data = page.get()
         data[str(em.id)] = {
