@@ -17,9 +17,24 @@ async def version_list(ctx: discord.AutocompleteContext): #版本號搜尋器
     version = ctx.value
     for i in versions:
         if version.lower() in i.lower():
+            rl.append(OptionChoice(name=i, value=i))
+            if len(rl) >= 25:
+                break 
+    return rl
+
+async def song_list(ctx: discord.AutocompleteContext): #版本號搜尋器
+    rl = []
+    data = songs.get()
+    name = ctx.value
+    for i in data:
+        if name.lower() in i.lower():
+            if len(i) > 100:
+                fn = f'{i[:97]}...'
+            else:
+                fn = i
+            rl.append(OptionChoice(name=fn, value=fn))
             if len(rl) >= 25:
                 break
-            rl.append(OptionChoice(name=i, value=i))       
     return rl
 
 def find_songs(mix_level=1.0, max_level=15.0, version=None, dx=-1, diff=None,region=None): #找出全部符合條件的鋪面
@@ -38,18 +53,22 @@ def find_songs(mix_level=1.0, max_level=15.0, version=None, dx=-1, diff=None,reg
                             ok_data.append({"name": song, "diff": i}) #都沒問題就存入資料
     return ok_data #輸出符合條件的資料
 
+
+
 def song_embed(name, diff=None): #創建embed
     aka = {"False Amber (from the Black Bazaar, Or by A Kervan Trader from the Lands Afar, Or Buried Beneath ...":"False Amber (from the Black Bazaar, Or by A Kervan Trader from the Lands Afar, Or Buried Beneath the Shifting Sands That Lead Everywhere but Nowhere)"}
     if name in aka:
         name = aka.get(name)
     songss = songs.get() #取得歌曲資料
+    if songss.get(name, None) == None:
+        return discord.Embed(title=f"{name}", description="未找到這首歌的資料", colour=0x00b0f4)
     embed = discord.Embed(title=f"{name}", description=f"更新版本：{songss[name]['version']}\n分類：{songss[name]['genre']}\n區域：日版{['❌','✅'][songss[name]['region']['JP']]} 國際版{['❌','✅'][songss[name]['region']['INT']]} 中國版{['❌','✅'][songss[name]['region']['CN']]}", colour=0x00b0f4)
     embed.set_author(name=songss[name]["artist"])
     embed.set_thumbnail(url=f"https://otoge-db.net/maimai/jacket/{songss[name].get('img','404.png')}")
     if diff == None:
         for i in songss[name]["const"]:
             query = urllib.parse.quote_plus(f'maimai {name} {i}') #讓使用者可以直接點擊搜尋
-            embed.add_field(name=lte(i), value=f"難度: {const_to_level(songss[name]['const'][i])}({(songss[name]['const'][diff]) if (songss[name]['unknown'][diff] == 0) else ('~~' + str(songss[name]['const'][diff]) + '~~')})\n[在YouTube搜尋](https://www.youtube.com/results?search_query={query})", inline=False)
+            embed.add_field(name=lte(i), value=f"難度: {const_to_level(songss[name]['const'][i])}({(songss[name]['const'][i]) if (songss[name]['unknown'][i] == 0) else ('~~' + str(songss[name]['const'][i]) + '~~')})\n[在YouTube搜尋](https://www.youtube.com/results?search_query={query})", inline=False)
     else:
         if songss[name]['const'].get(diff,None) == None:
             diff = "DX_MASTER"
@@ -60,7 +79,7 @@ def song_embed(name, diff=None): #創建embed
     return embed
 
 def lte(text): #轉換文字成表情符號
-    rep = {"STD_": "<:std1:1391324347670466602><:std2:1391324443405717604><:std3:1391324500582469733><:std4:1391324523160276993> ","DX_": "<:dx1:1391324687472267284><:dx2:1391324723547209769><:dx3:1391324751187677224><:dx4:1391324771077066843> "}
+    rep = {"STD_": "<:STD1:1482249446048923739><:STD2:1482249581642121511><:STD3:1482249595504562418><:STD4:1482249613963432017>","DX_": "<:DX1:1482249052216102962><:DX2:1482249073326161991><:DX3:1482249085862940764><:DX4:1482249096868925492>"}
     for i in rep:
         text = text.replace(i,rep[i])
     return text
@@ -73,9 +92,11 @@ class List(discord.ui.View):
         data = page.get()
         td = data.get(str(interaction.message.id), 404)
         if td == 404:
-            await interaction.response.send_message("未找到資料，請嘗試重新輸入")
+            await interaction.response.send_message("未找到資料，請嘗試重新輸入",ephemeral=True)
+        elif td["author"] != interaction.user.id:
+            await interaction.response.send_message("要按自己開一個",ephemeral=True)
         elif td["page"] == 1:
-            await interaction.response.send_message("你按了上一頁，但這已經是第一頁了")
+            await interaction.response.send_message("你按了上一頁，但這已經是第一頁了",ephemeral=True)
         else:
             td["page"] -= 1
             songss = find_songs(td['mix_level'], td['max_level'], td['version'], td['dx'], td['diff'],td['region'])
@@ -85,14 +106,19 @@ class List(discord.ui.View):
             await interaction.response.edit_message(content=f"page {td['page']}/{math.ceil(len(songss)/10)}",embeds=ss, view=List())
             data[str(interaction.message.id)] = td
             page.write(data)
+    @discord.ui.button(label=f"頁數: 看上面", style=discord.ButtonStyle.secondary , disabled=True)
+    async def page(self, button, interaction):
+        await interaction.response.send_message("你怎麼按的",ephemeral=True)
     @discord.ui.button(label="下一頁", style=discord.ButtonStyle.primary, emoji="➡️")
     async def down(self, button, interaction):
         data = page.get()
         td = data.get(str(interaction.message.id), 404)
         if td == 404:
-            await interaction.response.send_message("未找到資料，請嘗試重新輸入")
+            await interaction.response.send_message("未找到資料，請嘗試重新輸入",ephemeral=True)
+        elif td["author"] != interaction.user.id:
+            await interaction.response.send_message("要按自己開一個",ephemeral=True)
         elif td["page"] == td["max"]:
-            await interaction.response.send_message("你按了下一頁，但這已經是最後一頁了")
+            await interaction.response.send_message("你按了下一頁，但這已經是最後一頁了",ephemeral=True)
         else:
             td["page"] += 1
             songss = find_songs(td['mix_level'], td['max_level'], td['version'], td['dx'], td['diff'],td['region'])
@@ -164,8 +190,10 @@ class song(commands.Cog):
         page.write(data)
     
     @song.command(name='find',description='尋找指定歌曲')
-    async def ping(self,ctx: discord.ApplicationContext):
-        await ctx.respond(f"等等寫")
+    async def find(self,ctx: discord.ApplicationContext,
+    name: discord.Option(str,autocomplete=song_list,required=True,name="歌曲名稱",description="歌曲名稱"),
+    ):
+        await ctx.respond(embed=song_embed(name))
     
     @song.command(name='update',description='幫我更新一下歌曲資料庫')
     async def ping(self,ctx: discord.ApplicationContext):
