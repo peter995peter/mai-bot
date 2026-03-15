@@ -68,17 +68,25 @@ python3 bot.py
 ```
 ├── bot.py
 ├── cogs
-│   ├── link.py
-│   ├── ping.py
-│   └── song.py
+│   ├── game.py
+│   ├── link.py
+│   ├── ping.py
+│   ├── song.py
+│   └── top.py
 ├── data
-│   ├── link.json
-│   ├── page.json
-│   └── songs.json
+│   ├── cache
+│   ├── link.json
+│   ├── page.json
+│   └── songs.json
 ├── fun
-│   ├── mainet.py
-│   └── songs.py
-└── requirements.txt
+│   ├── link.py
+│   ├── mainet.py
+│   └── songs.py
+├── LICENSE
+├── README.md
+├── requirements.txt
+└── .env
+
 ```
 
 ## 資料來源
