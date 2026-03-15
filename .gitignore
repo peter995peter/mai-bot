@@ -2,3 +2,5 @@
 data
 __pycache__
 .venv
+test.py
+cogs/top.py1
