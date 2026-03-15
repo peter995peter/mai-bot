@@ -1,6 +1,8 @@
 import requests
 import os
 from bs4 import BeautifulSoup
+import time
+import json
 
 clal = {'User-Agent':'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36'}
 userId = {'User-Agent':'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36'}
@@ -76,6 +78,42 @@ def getInfo(friend_code):
         if soup.title.text == "maimai DX NET－All Friend's－":
             return None
         else:
-            return {"name": soup.select('div.p_l_5.t_l.f_l.f_12.f_b')[1].text, "rating": int(soup.select('div.rating_block')[1].text)}
+            icon = soup.select('img.h_55.f_l')[1]["src"]
+            return {"name": soup.select('div.p_l_5.t_l.f_l.f_12.f_b')[1].text, "rating": int(soup.select('div.rating_block')[1].text),"icon": icon}
     else:
         return None
+
+def newCache(name,data,et):
+    data = {"start": time.time(), "expired": time.time()+et, "data": data}
+    with open(f"data/cache/{name}.json", "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=4,ensure_ascii=False)
+
+def getScore(id,diff):
+    print(f"開始抓取{id} {diff}")
+    diff = {"BASIC":0,"ADVANCED":1,"EXPERT":2,"MASTER":3,"Re:MASTER":4}[diff]
+    if os.path.exists(f"data/cache/{id}_{diff}.json"):
+        print("發現cache")
+        with open(f"data/cache/{id}_{diff}.json") as file:
+            data = json.load(file)
+        if time.time() > data["expired"]:
+            print("cache已過期，繼續抓取網頁")
+            os.remove(f"data/cache/{id}_{diff}.json")
+        else:
+            print("cache未過期，使用cache")
+            return data["data"]
+    soup = get(f"friend/friendGenreVs/battleStart/?scoreType=2&genre=99&diff={diff}&idx={id}")
+    if not soup:
+        return False
+    else:
+        data = {}
+        diff2 = ["basic","advanced","expert","master","remaster"][diff]
+        for i in soup.select(f"div.music_{diff2}_score_back"):
+            music_name = i.select_one("div.music_name_block").text
+            data[music_name] = []
+            dx = i.select_one("img.music_kind_icon")["src"] == "https://maimaidx-eng.com/maimai-mobile/img/music_dx.png"
+            acc = i.select(f"td.{diff2}_score_label")[1].get_text(strip=True).replace("%", "")
+            if acc != "― ":
+                data[music_name].append({"dx":dx,"acc": float(acc)})
+        newCache(f"{id}_{diff}",data,600)
+        print(f"完成抓取{id} {diff}")
+        return data

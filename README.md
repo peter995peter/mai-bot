@@ -61,3 +61,33 @@ MacOS / Linux
 ```bash
 python3 bot.py
 ```
+
+## 指令說明
+
+## 專案結構
+```
+├── bot.py
+├── cogs
+│   ├── link.py
+│   ├── ping.py
+│   └── song.py
+├── data
+│   ├── link.json
+│   ├── page.json
+│   └── songs.json
+├── fun
+│   ├── mainet.py
+│   └── songs.py
+└── requirements.txt
+```
+
+## 資料來源
+定數資料庫 / 日服收錄資訊：[音ゲーツール置き場](https://reiwa.f5.si/)
+
+國際服收錄資訊：[官方網站](https://maimai.sega.com/)
+
+中國服收錄資訊：[CrazyKidCN/maimaiDX-CN-songs-database](https://github.com/CrazyKidCN/maimaiDX-CN-songs-database)
+
+
+## 授權
+此專案採用 MIT License，詳見 [LICENSE](LICENSE) 檔案。

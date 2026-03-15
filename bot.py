@@ -1,6 +1,16 @@
 import discord
 import os
 from dotenv import load_dotenv
+from fun import songs
+
+if not os.path.exists("data"): #初次啟動
+    os.makedirs("data")
+    os.makedirs("data/cache")
+    with open("data/link.json", "w") as file:
+        file.write("{}")
+    with open("data/page.json", "w") as file:
+        file.write("{}")
+    songs.update()
 
 load_dotenv() #讀取.env
 
