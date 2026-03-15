@@ -54,8 +54,6 @@ def get(url):
             r = requests.get(f"https://maimaidx-eng.com/maimai-mobile/{url}",headers=userId)
         else:
             return False
-    with open("out.html","w") as file:
-        file.write(r.text)
     soup = BeautifulSoup(r.text, 'html.parser')
     title = soup.title.text
     if title == "Login|maimai DX NET" or title == "maimai DX NET－Error－":
@@ -114,6 +112,6 @@ def getScore(id,diff):
             acc = i.select(f"td.{diff2}_score_label")[1].get_text(strip=True).replace("%", "")
             if acc != "― ":
                 data[music_name].append({"dx":dx,"acc": float(acc)})
-        newCache(f"{id}_{diff}",data,600)
+        newCache(f"{id}_{diff}",data,3600) #緩存1小時
         print(f"完成抓取{id} {diff}")
         return data
