@@ -43,7 +43,7 @@ class top(commands.Cog):
             names = soup.select("div.f_l.p_t_10.p_l_10.f_15")
             ratings = soup.select("div.rating_block")
             n = 0
-            while n < min(num,len(names)):
+            while n < min(num,len(names)) and len(st) < 3800:
                 n += 1
                 st += f"{n}. {names[n-1].text.strip()}: {ratings[n].text.strip()}\n"
             embed = discord.Embed(title=f"Rating排行榜(全球)", description=st[:4000], colour=0x00b0f4)
@@ -90,7 +90,36 @@ class top(commands.Cog):
                 embed.set_footer(text="你未上榜")
             await em.edit(content="",embed=embed)
         else:
-            await em.edit(content="還沒寫")
+            idx = -1
+            diff1 = {"BASIC":0,"ADVANCED":1,"EXPERT":2,"MASTER":3,"Re:MASTER":4}[diff]
+            soup = mainet.get(f"ranking/search/?search=G&scoreType=2&rankingType=99&diff={diff1}")
+            diff2 = ["basic","advanced","expert","master","remaster"][diff1]
+            for i in soup.select(f".music_{diff2}_score_back"):
+                if i.select_one("div.music_name_block").text.strip() == name and (i.select_one("img.music_kind_icon")["src"] == "https://maimaidx-eng.com/maimai-mobile/img/music_dx.png") == {"DX": True,"STD": False}[tp]:
+                    idx = i.select_one('input[name="idx"]')["value"]
+                    break
+            if idx == -1:
+                await em.edit(content="網站上未找到這首歌")
+            else:
+                soup2 = mainet.get(f"ranking/musicRankingDetail/?idx={idx}&scoreType=2&rankingType=99&diff={diff1}")
+                if not(soup2):
+                    await em.edit(content="發生錯誤，請稍後重試")
+                else:
+                    names = soup2.select("div.f_l.p_t_10.p_l_10.f_15")
+                    acc = soup2.select("div.p_15.p_r_10.p_b_0.f_r.t_r.f_16.f_b")
+                    app = soup2.select("div.ranking_theory_count")
+                    n = 0
+                    while n < min(num,len(names)) and len(st) < 3800:
+                        if n < len(app):
+                            ap = f"(理論{app[n].text}次)"
+                        else:
+                            ap = ""
+                        n += 1
+                        st += f"{n}. {names[n-1].text.strip()}: {acc[n-1].text.strip()} {ap}\n"
+                    embed = discord.Embed(title="成績排行榜(全球)", description=f"{name}\n{song.lte(f'{tp}_{diff}')}\n難度: {song.const_to_level(songss['const'][f'{tp}_{diff}'])}({(songss['const'][f'{tp}_{diff}']) if (songss['unknown'][f'{tp}_{diff}'] == 0) else ('~~' + str(songss['const'][f'{tp}_{diff}']) + '~~')})\n\n{st}", colour=0x00b0f4)
+                    embed.set_author(name=songss["artist"])
+                    embed.set_thumbnail(url=f"https://otoge-db.net/maimai/jacket/{songss.get('img','404.png')}")
+                    await em.edit(content="",embed=embed)
 
 def setup(bot):
     bot.add_cog(top(bot))
