@@ -62,7 +62,47 @@ MacOS / Linux
 python3 bot.py
 ```
 
-## 指令說明
+## 指令說明與範例
+### 歌曲相關
+- `/song random [最低等級] [最高等級] [版本] [DX/STD] [難度] [數量]` - 根據條件隨機抽取歌曲
+
+範例:
+```
+/song random 最低等級: 13 最高等級: 14 指定版本: PRiSM PLUS 指定類型: DX 指定難度: MASTER 指定區域: 國際版 數量: 2
+用途: 從 PRiSM PLUS 抽 2 張 難度 MASTER 等級 13 ~ 14 的 DX 譜面
+```
+![song_random](img/song_random.png)
+
+- `/song list [最低等級] [最高等級] [版本] [DX/STD] [難度]` - 根據條件以每頁 10 首歌列出歌曲
+
+範例:
+```
+/song list 最低等級: 13 最高等級: 14 指定版本: PRiSM PLUS 指定類型: DX 指定難度: MASTER 指定區域: 國際版 數量: 2
+用途: 列出 PRiSM PLUS 難度 MASTER 等級 13 ~ 14 的全部 DX 譜面
+```
+![song_list1](img/song_list1.png)
+
+中間太長剪掉了
+
+![song_list2](img/song_list2.png)
+
+- `/song find <歌曲名稱>` - 搜尋指定歌曲的詳細資訊
+
+範例:
+```
+/song find 歌曲名稱: ウミユリ海底譚
+用途: 列出 ウミユリ海底譚 這首歌的詳細資訊
+```
+![song_find](img/song_find.png)
+
+- `/song update` - 更新歌曲資料庫
+
+範例:
+```
+/song update
+用途: 更新歌曲資料庫
+```
+![song_update](img/song_update.png)
 
 ## 專案結構
 ```
