@@ -64,7 +64,9 @@ python3 bot.py
 
 ## 指令說明與範例
 ### 歌曲相關
-- `/song random [最低等級] [最高等級] [版本] [DX/STD] [難度] [數量]` - 根據條件隨機抽取歌曲
+#### `/song random` 
+- 用途: 根據條件隨機抽取歌曲
+- 格式: `/song random [最低等級] [最高等級] [版本] [DX/STD] [難度] [數量]`
 
 範例:
 ```
@@ -73,7 +75,10 @@ python3 bot.py
 ```
 ![song_random](img/song_random.png)
 
-- `/song list [最低等級] [最高等級] [版本] [DX/STD] [難度]` - 根據條件以每頁 10 首歌列出歌曲
+---
+#### `/song list`
+- 用途: 根據條件以每頁 10 首歌列出歌曲
+- 格式: `/song list [最低等級] [最高等級] [版本] [DX/STD] [難度]`
 
 範例:
 ```
@@ -82,11 +87,15 @@ python3 bot.py
 ```
 ![song_list1](img/song_list_1.png)
 
-中間太長剪掉了
+> 中間太長剪掉了
 
 ![song_list2](img/song_list_2.png)
 
-- `/song find <歌曲名稱>` - 搜尋指定歌曲的詳細資訊
+---
+
+#### `/song find`
+- 用途: 搜尋指定歌曲的詳細資訊
+- 格式: `/song find <歌曲名稱>`
 
 範例:
 ```
@@ -95,7 +104,11 @@ python3 bot.py
 ```
 ![song_find](img/song_find.png)
 
-- `/song update` - 更新歌曲資料庫
+---
+
+#### `/song update`
+- 用途: 更新歌曲資料庫
+- 格式: `/song update`
 
 範例:
 ```
