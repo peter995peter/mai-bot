@@ -80,11 +80,11 @@ python3 bot.py
 /song list 最低等級: 13 最高等級: 14 指定版本: PRiSM PLUS 指定類型: DX 指定難度: MASTER 指定區域: 國際版 數量: 2
 用途: 列出 PRiSM PLUS 難度 MASTER 等級 13 ~ 14 的全部 DX 譜面
 ```
-![song_list1](img/song_list1.png)
+![song_list1](img/song_list_1.png)
 
 中間太長剪掉了
 
-![song_list2](img/song_list2.png)
+![song_list2](img/song_list_2.png)
 
 - `/song find <歌曲名稱>` - 搜尋指定歌曲的詳細資訊
 
