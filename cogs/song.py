@@ -6,6 +6,7 @@ import random
 import urllib
 import math
 import json
+import os
 
 def pageGet():
     with open("data/page.json") as file:
@@ -86,7 +87,7 @@ def song_embed(name, diff=None): #創建embed
     return embed
 
 def lte(text): #轉換文字成表情符號
-    rep = {"STD_": "<:STD1:1482249446048923739><:STD2:1482249581642121511><:STD3:1482249595504562418><:STD4:1482249613963432017>","DX_": "<:DX1:1482249052216102962><:DX2:1482249073326161991><:DX3:1482249085862940764><:DX4:1482249096868925492>"}
+    rep = {"STD_": os.getenv("STD_Emoji"),"DX_": os.getenv("DX_Emoji")}
     for i in rep:
         text = text.replace(i,rep[i])
     return text

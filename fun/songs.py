@@ -29,7 +29,8 @@ def off_ver(num): #由官方版本號轉換版本名稱
     "245": "BUDDiES PLUS",
     "250": "PRiSM",
     "255": "PRiSM PLUS",
-    "260": "CiRCLE"
+    "260": "CiRCLE",
+    "265": "CiRCLE PLUS"
 }
     return vl[str(int(num)//100)]
 
@@ -99,7 +100,7 @@ def update(): #更新歌曲資料庫
                 print(f"日服發現新歌：{i['title']}")
                 songs[i["title"]] = {
         "artist": i.get("artist"), #作曲者
-        "genre": i.get("genre"), #類別
+        "genre": i.get("catcode"), #類別
         "version": off_ver(i.get("version")), #由官方版本號轉換為版本名稱
         "img": i.get("image_url"), #圖片保存位置
         "const": {}, #定數
@@ -123,7 +124,7 @@ def update(): #更新歌曲資料庫
                 print(f"國際版發現新歌：{i['title']}")
                 songs[i["title"]] = {
         "artist": i.get("artist"), #作曲者
-        "genre": i.get("genre"), #類別
+        "genre": i.get("catcode"), #類別
         "version": off_ver(i.get("version")), #由官方版本號轉換為版本名稱
         "img": i.get("image_url"), #圖片保存位置
         "const": {}, #定數

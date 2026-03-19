@@ -49,6 +49,8 @@ pip install -r requirements.txt
 DISCORD_TOKEN=你的Discord TOKEN
 MaiNet_User=你的maimai DX NET帳號
 MaiNet_Pass=你的maimai DX NET密碼
+STD_Emoji=需手動上傳
+DX_Emoji=需手動上傳
 ```
 
 4. 啟動機器人
