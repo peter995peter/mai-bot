@@ -64,6 +64,7 @@ python3 bot.py
 
 ## 指令說明與範例
 ### 歌曲相關
+
 #### `/song random` 
 - 用途: 根據條件隨機抽取歌曲
 - 格式: `/song random [最低等級] [最高等級] [版本] [DX/STD] [難度] [數量]`
@@ -116,6 +117,88 @@ python3 bot.py
 用途: 更新歌曲資料庫
 ```
 ![song_update](img/song_update.png)
+
+---
+
+### 帳號綁定
+#### `/link` 
+- 用途: 使用好友代碼綁定帳號
+- 格式: `/link <好友代碼>`
+
+範例:
+```
+/link 好友代碼: 101326485983822
+用途: 使用好友代碼綁定帳號 101326485983822
+```
+![link](img/link.png)
+
+---
+
+#### `/unlink` 
+- 用途: 解除綁定帳號
+- 格式: `/unlink` 
+
+範例:
+```
+/unlink
+用途: 解除綁定帳號
+```
+![unlink](img/unlink.png)
+
+---
+
+### 成績查詢
+#### `/score` 
+- 用途: 查詢自己指定歌曲的分數
+- 格式: `/score <歌曲名稱> [難度]` 
+
+範例:
+```
+/score 歌曲名稱: Transcend Lights 指定難度: MASTER
+查詢自己 Transcend Lights 的 MASTER 難度的成績
+```
+![score](img/score.png)
+
+---
+
+#### `/top rating`
+- 用途: 查詢全球或綁定者的rating排行
+- 格式: `/top rating <全球/機器人> [數量]` 
+
+範例:
+```
+/top rating 排行區域: 全球 數量: 20
+用途: 查詢 全球 中前 20 名的rating排行榜
+```
+![top_rating](img/top_rating.png)
+
+---
+
+#### `/top song` 
+- 用途: 查詢全球或綁定者的歌曲排行
+- 格式: `/top song <全球/機器人> <歌曲名稱> <難度> [數量]`
+
+範例:
+```
+/top score 歌曲名稱: 系ぎて 指定難度: Re:MASTER 指定類型: DX 排行區域: 全球 數量: 20
+用途: 查詢 全球 中前 20 名的 系ぎて Re:MASTER 的 DX 譜達成率
+```
+![top_score](img/top_score.png)
+
+---
+
+#### `/info` 
+- 用途: 查詢指定玩家綁定的個人資訊
+- 格式: `/info [玩家]` 
+
+範例:
+```
+/info 指定玩家: @不能吃的木呱
+查看 @不能吃的木呱 的個人資料
+```
+![info](img/info.png)
+
+---
 
 ## 專案結構
 ```
