@@ -81,7 +81,7 @@ class top(commands.Cog):
                     yr = n
                 st += f"{n}. <@{i['user']}>: {i['acc']}%\n"
                 n += 1
-            embed = discord.Embed(title="成績排行榜(機器人)", description=f"{name}\n{song.lte(f'{tp}_{diff}')}\n難度: {song.const_to_level(songss['const'][f'{tp}_{diff}'])}({(songss['const'][f'{tp}_{diff}']) if (songss['unknown'][f'{tp}_{diff}'] == 0) else ('~~' + str(songss['const'][f'{tp}_{diff}']) + '~~')})\n\n{st}", colour=0x00b0f4)
+            embed = discord.Embed(title="成績排行榜(機器人)", description=f"{name}\n{song.lte(f'{tp}_{diff}')}\n難度: {song.const_to_level(songss['const'][f'{tp}_{diff}'])}({(songss['const'][f'{tp}_{diff}']) if (songss['unknown'][f'{tp}_{diff}'] == 0) else ('~~' + str(songss['const'][f'{tp}_{diff}']) + '~~')})\n\n{st}", colour=song.get_color(diff))
             embed.set_author(name=songss["artist"])
             embed.set_thumbnail(url=f"https://otoge-db.net/maimai/jacket/{songss.get('img','404.png')}")
             if yr != -1:
@@ -116,7 +116,7 @@ class top(commands.Cog):
                             ap = ""
                         n += 1
                         st += f"{n}. {names[n-1].text.strip()}: {acc[n-1].text.strip()} {ap}\n"
-                    embed = discord.Embed(title="成績排行榜(全球)", description=f"{name}\n{song.lte(f'{tp}_{diff}')}\n難度: {song.const_to_level(songss['const'][f'{tp}_{diff}'])}({(songss['const'][f'{tp}_{diff}']) if (songss['unknown'][f'{tp}_{diff}'] == 0) else ('~~' + str(songss['const'][f'{tp}_{diff}']) + '~~')})\n\n{st}", colour=0x00b0f4)
+                    embed = discord.Embed(title="成績排行榜(全球)", description=f"{name}\n{song.lte(f'{tp}_{diff}')}\n難度: {song.const_to_level(songss['const'][f'{tp}_{diff}'])}({(songss['const'][f'{tp}_{diff}']) if (songss['unknown'][f'{tp}_{diff}'] == 0) else ('~~' + str(songss['const'][f'{tp}_{diff}']) + '~~')})\n\n{st}", colour=song.get_color(diff))
                     embed.set_author(name=songss["artist"])
                     embed.set_thumbnail(url=f"https://otoge-db.net/maimai/jacket/{songss.get('img','404.png')}")
                     await em.edit(content="",embed=embed)

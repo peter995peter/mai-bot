@@ -69,21 +69,18 @@ def song_embed(name, diff=None): #創建embed
         name = aka.get(name)
     songss = songs.get() #取得歌曲資料
     if songss.get(name, None) == None:
-        return discord.Embed(title=f"{name}", description="未找到這首歌的資料", colour=0x00b0f4)
-    embed = discord.Embed(title=f"{name}", description=f"更新版本：{songss[name]['version']}\n分類：{songss[name]['genre']}\n區域：日版{['❌','✅'][songss[name]['region']['JP']]} 國際版{['❌','✅'][songss[name]['region']['INT']]} 中國版{['❌','✅'][songss[name]['region']['CN']]}", colour=0x00b0f4)
+        return discord.Embed(title=f"{name}", description="未找到這首歌的資料", colour=0xf44336)
+    embed = discord.Embed(title=f"{name}", description=f"更新版本：{songss[name]['version']}\n分類：{songss[name]['genre']}\n區域：日版{['❌','✅'][songss[name]['region']['JP']]} 國際版{['❌','✅'][songss[name]['region']['INT']]} 中國版{['❌','✅'][songss[name]['region']['CN']]}", colour=get_color(diff))
     embed.set_author(name=songss[name]["artist"])
     embed.set_thumbnail(url=f"https://otoge-db.net/maimai/jacket/{songss[name].get('img','404.png')}")
     if diff == None:
-        for i in songss[name]["const"]:
+        diff = list(songss[name]["const"])
+    else:
+        diff = [diff] if (songss[name]['const'].get(diff,None) != None) else [f"DX_{diff}",f"STD_{diff}"]
+    for i in diff:
+        if songss[name]['const'].get(i,None) != None:
             query = urllib.parse.quote_plus(f'maimai {name} {i}') #讓使用者可以直接點擊搜尋
             embed.add_field(name=lte(i), value=f"難度: {const_to_level(songss[name]['const'][i])}({(songss[name]['const'][i]) if (songss[name]['unknown'][i] == 0) else ('~~' + str(songss[name]['const'][i]) + '~~')})\n[在YouTube搜尋](https://www.youtube.com/results?search_query={query})", inline=False)
-    else:
-        if songss[name]['const'].get(diff,None) == None:
-            diff = "DX_MASTER"
-            if songss[name]['const'].get(diff,None) == None:
-                diff = "STD_MASTER"
-        query = urllib.parse.quote_plus(f'maimai {name} {diff}') #讓使用者可以直接點擊搜尋
-        embed.add_field(name=lte(diff), value=f"難度: {const_to_level(songss[name]['const'][diff])}({(songss[name]['const'][diff]) if (songss[name]['unknown'][diff] == 0) else ('~~' + str(songss[name]['const'][diff]) + '~~')}))\n[在YouTube搜尋](https://www.youtube.com/results?search_query={query})", inline=False)
     return embed
 
 def lte(text): #轉換文字成表情符號
@@ -91,6 +88,20 @@ def lte(text): #轉換文字成表情符號
     for i in rep:
         text = text.replace(i,rep[i])
     return text
+
+def get_color(diff):
+    cl = {
+        "BASIC": 0x4caf50,
+        "ADVANCED": 0xffeb3b,
+        "EXPERT": 0xf44336,
+        "Re:MASTER": 0xffffff,
+        "MASTER": 0x9c27b0
+    }
+    if type(diff) == str:
+        for i in cl:
+            if diff.endswith(i):
+                return cl[i]
+    return 0x00b0f4
 
 class List(discord.ui.View):
     def __init__(self):

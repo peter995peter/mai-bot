@@ -64,7 +64,8 @@ def version(date): #由日期推算版本名稱
     "PRiSM": "2024-09-12",
     "PRiSM PLUS": "2025-03-13",
     "CiRCLE": "2025-09-18",
-    "CiRCLE PLUS": "2026-03-19"
+    "CiRCLE PLUS": "2026-03-19",
+    "XD": "2099-12-31"
 }
     cv = "NaV"
     for i in vl:

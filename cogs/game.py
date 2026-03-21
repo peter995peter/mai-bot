@@ -45,8 +45,8 @@ class game(commands.Cog):
             em = await ctx.respond("讀取中")
             songss = songs.get().get(name,None)
             if songss is None:
-                embed = discord.Embed(title=name, description="未找到這首歌的資料", colour=0x00b0f4)
-            embed = discord.Embed(title=name, description=mainet.getInfo(Mid)["name"], colour=0x00b0f4)
+                embed = discord.Embed(title=name, description="未找到這首歌的資料", colour=0xf44336)
+            embed = discord.Embed(title=name, description=mainet.getInfo(Mid)["name"], colour=song.get_color(diff))
             embed.set_author(name=songss["artist"])
             embed.set_thumbnail(url=f"https://otoge-db.net/maimai/jacket/{songss.get('img','404.png')}")
             if diff is None:
@@ -74,7 +74,7 @@ class game(commands.Cog):
         else:
             data = mainet.getInfo(Mid)
             print(data)
-            embed = discord.Embed(title=data["name"], description=f"Rating: {data['rating']}")
+            embed = discord.Embed(title=data["name"], description=f"Rating: {data['rating']}", colour=0x00b0f4)
             embed.set_thumbnail(url=data['icon']) #不知道為什麼抓不到，已放棄
         await em.edit(content="",embed=embed)
 def setup(bot):
