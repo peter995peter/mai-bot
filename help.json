@@ -128,20 +128,20 @@
                     "```"
                 ],
                 "img": "https://raw.githubusercontent.com/peter995peter/mai-bot/refs/heads/main/img/top_score.png"
+            },
+            "/info": {
+                "content": [
+                    "- 用途: 查詢指定玩家綁定的個人資訊",
+                    "- 格式: `/info [玩家]`",
+                    "",
+                    "範例:",
+                    "```",
+                    "/info 指定玩家: @不能吃的木呱",
+                    "用途: 查看 @不能吃的木呱 的個人資料",
+                    "```"
+                ],
+                "img": "https://raw.githubusercontent.com/peter995peter/mai-bot/refs/heads/main/img/info.png"
             }
-        },
-        "/info": {
-            "content": [
-                "- 用途: 查詢指定玩家綁定的個人資訊",
-                "- 格式: `/info [玩家]`",
-                "",
-                "範例:",
-                "```",
-                "/info 指定玩家: @不能吃的木呱",
-                "用途: 查看 @不能吃的木呱 的個人資料",
-                "```"
-            ],
-            "img": "https://raw.githubusercontent.com/peter995peter/mai-bot/refs/heads/main/img/info.png"
         }
     }
 }
