@@ -65,6 +65,20 @@ python3 bot.py
 ```
 
 ## 指令說明與範例
+
+### 幫助相關
+
+#### `/help`
+- 用途: 查看指令使用方法
+- 格式: `/help [指定類別] [指定指令]`
+
+範例:
+```
+/help 指定類別: 成績查詢
+用途: 查看類別為 成績查詢 的指令
+```
+![help](img/help.jpg)
+
 ### 歌曲相關
 
 #### `/song random` 
@@ -207,6 +221,7 @@ python3 bot.py
 ├── bot.py
 ├── cogs
 │   ├── game.py
+│   ├── help.py
 │   ├── link.py
 │   ├── ping.py
 │   ├── song.py
@@ -220,11 +235,24 @@ python3 bot.py
 │   ├── link.py
 │   ├── mainet.py
 │   └── songs.py
+├── help.json
+├── img
+│   ├── help.jpg
+│   ├── info.png
+│   ├── link.png
+│   ├── score.png
+│   ├── song_find.png
+│   ├── song_list_1.png
+│   ├── song_list_2.png
+│   ├── song_random.png
+│   ├── song_update.png
+│   ├── top_rating.png
+│   ├── top_score.png
+│   └── unlink.png
 ├── LICENSE
 ├── README.md
-├── requirements.txt
-└── .env
-
+├── .env
+└── requirements.txt
 ```
 
 ## 資料來源

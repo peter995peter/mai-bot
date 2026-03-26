@@ -1,4 +1,22 @@
 {
+    "help": {
+        "name": "幫助相關",
+        "commands": {
+            "/help": {
+                "content":[
+                    "- 用途: 查看指令使用方法",
+                    "- 格式: `/help [指定類別] [指定指令]`",
+                    "",
+                    "範例:",
+                    "```",
+                    "/help 指定類別: 成績查詢",
+                    "用途: 查看類別為 成績查詢 的指令",
+                    "```"
+                ],
+                "img": "https://raw.githubusercontent.com/peter995peter/mai-bot/refs/heads/main/img/help.jpg"
+            }
+        }
+    },
     "song": {
         "name": "歌曲相關",
         "commands": {
